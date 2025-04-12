@@ -27,14 +27,6 @@ if df_filtered.empty:
     st.warning("No data for the selected filters.")
     st.stop()
 
-#call for alerts
-from email_alert import check_and_send_email
-
-email_config = {
-    'sender': 'project2vitchennai@gmail.com',
-    'password': 'uxmh mbns qunn wghw',
-    'recipient': 'adityasaran.24@gmail.com'
-}
 
 #check_and_send_email(df_filtered, email_config)
 
