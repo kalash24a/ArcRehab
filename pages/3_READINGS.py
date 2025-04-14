@@ -183,54 +183,50 @@ with tab4:
 
         st.plotly_chart(fig, use_container_width=True)
 
-#................
-    # score 
-    st.subheader("Comprehensive Data Matrix")
+        # ✅ Move this inside the `else` block
+        st.subheader("Comprehensive Data Matrix")
+        st.dataframe(
+            filtered_df.style.format({
+                "Total Score": "{:.0f}",
+                "Average Score": "{:.2f}",
+                "Min Score": "{:.0f}",
+                "Max Score": "{:.0f}"
+            }),
+            use_container_width=True
+        )
 
-    st.dataframe(
-        filtered_df.style.format({
-            "Total Score": "{:.0f}",
-            "Average Score": "{:.2f}",
-            "Min Score": "{:.0f}",
-            "Max Score": "{:.0f}"
-        }),
-        use_container_width=True
-    )
-    
-    
-    st.subheader("Calories Burned Prediction")
+        # ✅ Calories Burned Estimation Section
+        st.subheader("Calories Burned Prediction")
 
-    col1, col2, col3 = st.columns(3)
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            user_weight = st.number_input("Weight (kg)", min_value=20.0, max_value=200.0, value=70.0)
+        with col2:
+            timer = st.number_input("Timer (seconds)", min_value=10.0, max_value=1000.0, value=15.0)
+        with col3:
+            MET = st.number_input("MET", min_value=0.0, max_value=10.0, value=3.5)
 
-    with col1:
-        user_weight = st.number_input("Weight (kg)", min_value=20.0, max_value=200.0, value=70.0)
+        # Compute total kicks per day
+        filtered_df["Total Kicks"] = filtered_df["Total Score"] / 10
+        kick_duration_per_kick = timer / filtered_df["Total Kicks"].sum()
 
-    with col2:
-        timer = st.number_input("Timer (seconds)", min_value=10.0, max_value=1000.0, value=15.0)
+        # Compute duration per day in hours
+        filtered_df["Duration (hrs)"] = (filtered_df["Total Kicks"] * kick_duration_per_kick) / 3600
 
-    with col3:
-        MET = st.number_input("MET", min_value=0.0, max_value=10.0, value=3.5)
+        # Compute calories burned per day
+        filtered_df["Calories Burned"] = MET * user_weight * filtered_df["Duration (hrs)"]
 
-    # Compute total kicks per day
-    filtered_df["Total Kicks"] = filtered_df["Total Score"] / 10
-    kick_duration_per_kick = timer / filtered_df["Total Kicks"].sum()
+        st.markdown("**Estimated Calories Burned per Date**")
+        st.dataframe(
+            filtered_df[["Date", "Total Score", "Total Kicks", "Duration (hrs)", "Calories Burned"]].style.format({
+                "Total Score": "{:.0f}",
+                "Total Kicks": "{:.0f}",
+                "Duration (hrs)": "{:.3f}",
+                "Calories Burned": "{:.2f}"
+            }),
+            use_container_width=True
+        )
 
-    # Compute duration per day in hours
-    filtered_df["Duration (hrs)"] = (filtered_df["Total Kicks"] * kick_duration_per_kick) / 3600
-
-    # Compute calories burned per day
-    filtered_df["Calories Burned"] = MET * user_weight * filtered_df["Duration (hrs)"]
-
-    st.markdown("**Estimated Calories Burned per Date**")
-    st.dataframe(
-        filtered_df[["Date", "Total Score", "Total Kicks", "Duration (hrs)", "Calories Burned"]].style.format({
-            "Total Score": "{:.0f}",
-            "Total Kicks": "{:.0f}",
-            "Duration (hrs)": "{:.3f}",
-            "Calories Burned": "{:.2f}"
-        }),
-        use_container_width=True
-    )
 
 if st.button("🔄 Refresh Data Now"):
     st.cache_data.clear()
