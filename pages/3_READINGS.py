@@ -244,4 +244,4 @@ if st.button("🔄 Refresh Data Now"):
     score_df = load_score_data()
     st.success("Data refreshed!")
 else:
-    score_df = load_score_data()
+    filtered_df = load_score_data()
