@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 
 # Constants
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-SPREADSHEET_ID = "spreadsheets/d/1z3XFcHbPjdvAmebNm1MlJUbgxWiy8X3XINA6PYTvs6U"
+SPREADSHEET_ID = "1z3XFcHbPjdvAmebNm1MlJUbgxWiy8X3XINA6PYTvs6U"
 SCORE_SHEET_NAME = "Sheet2"
 
 @st.cache_data(show_spinner=False)
