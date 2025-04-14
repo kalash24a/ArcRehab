@@ -237,6 +237,6 @@ if st.button("🔄 Refresh Data Now"):
     df = load_data_from_gsheets()
     st.success("Data refreshed!")
 else:
-    df = load_data_from_gsheets()
+    score_df = load_score_data()
 
 
