@@ -239,9 +239,4 @@ if st.button("🔄 Refresh Data Now"):
 else:
     df = load_data_from_gsheets()
 
-if st.button("🔄 Refresh Data Now"):
-    st.cache_data.clear()
-    score_df = load_score_data()
-    st.success("Data refreshed!")
-else:
-    filtered_df = load_score_data()
+
