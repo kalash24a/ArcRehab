@@ -232,5 +232,11 @@ with tab4:
         use_container_width=True
     )
 
+if st.button("🔄 Refresh Data Now"):
+    st.cache_data.clear()
+    df = load_data_from_gsheets()
+    st.success("Data refreshed!")
+else:
+    df = load_data_from_gsheets()
 
 
