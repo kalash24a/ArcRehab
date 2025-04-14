@@ -5,8 +5,8 @@ from googleapiclient.discovery import build
 
 # Constants
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-SPREADSHEET_ID = "1z3XFcHbPjdvAmebNm1MlJUbgxWiy8X3XINA6PYTvs6U"
-SCORE_SHEET_NAME = "Sheet2"
+SPREADSHEET_ID = "16pZcstLCjce244Os-_tzjazCNc90BgfoIky_3Y0vQAM"
+SCORE_SHEET_NAME = "Sheet4"
 
 @st.cache_data(show_spinner=False)
 def load_score_data():
