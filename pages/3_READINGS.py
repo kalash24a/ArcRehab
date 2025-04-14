@@ -100,7 +100,7 @@ with tab4:
     st.title("Cumulative Score")
 
     # Load data
-    score_df = load_score_data("Sheet2")
+    score_df = load_score_data()
 
     if score_df.empty:
         st.warning("No score data to display.")
